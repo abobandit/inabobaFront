@@ -1,0 +1,52 @@
+{
+  "name": "typescriptguided",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check build-only",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
+    "@tiptap/pm": "^2.1.12",
+    "@tiptap/starter-kit": "^2.1.12",
+    "@tiptap/vue-3": "^2.1.12",
+    "@vueuse/core": "^10.5.0",
+    "axios": "^1.5.1",
+    "element-plus": "^2.4.0",
+    "pinia": "^2.1.6",
+    "skeleton-elements": "^4.0.1",
+    "socket.io-client": "^4.7.2",
+    "volar": "^0.0.2",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.3.2",
+    "@tsconfig/node18": "^18.2.0",
+    "@types/node": "^18.17.5",
+    "@vitejs/plugin-vue": "^4.3.1",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "@vue/eslint-config-typescript": "^11.0.3",
+    "@vue/tsconfig": "^0.4.0",
+    "autoprefixer": "^10.4.15",
+    "eslint": "^8.46.0",
+    "eslint-plugin-vue": "^9.16.1",
+    "laravel-echo": "^1.15.3",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.28",
+    "prettier": "^3.0.0",
+    "pusher-js": "^8.3.0",
+    "tailwindcss": "^3.3.3",
+    "typescript": "~5.1.6",
+    "unplugin-auto-import": "^0.16.6",
+    "unplugin-vue-components": "^0.25.2",
+    "vite": "^4.4.9",
+    "vue-tsc": "^1.8.8"
+  }
+}

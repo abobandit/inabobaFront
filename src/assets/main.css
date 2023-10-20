@@ -1,0 +1,30 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.el-upload-list__item:hover{
+    background: #3d3d3d !important;
+}
+.el-upload-list{
+    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-column-end: -1;
+}
+textarea{
+    background: #000000 !important;
+    outline: none !important;
+    border: none !important;
+    padding: 1rem;
+}
+textarea {
+    resize: none;
+    display: block;
+    height: fit-content;
+    border-style: none !important;
+    border-color: Transparent !important;
+    overflow: hidden !important;
+    box-shadow: none !important;
+}
+textarea:active{
+    border: none !important;
+}
