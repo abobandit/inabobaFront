@@ -8,7 +8,7 @@ const textarea = ref('')
 
 <template>
   <el-container class="centerarea ">
-    <div class="top border-b">
+    <div class="top border-b w-full">
       <LeftArrow/>
     </div>
     <RouterView/>

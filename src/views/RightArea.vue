@@ -7,7 +7,7 @@ import SuggestedProfiles from "@/components/rightArea/SuggestedProfiles.vue";
 
 <template>
   <el-aside
-      class="rightArea grid grid-cols-1 max-h-fit grid-rows-[repeat(4,min-content)] gap-y-20 max-w-fit">
+      class="rightArea grid grid-cols-1 max-h-fit grid-rows-[repeat(4,min-content)] gap-y-20 max-w-fit py-6">
       <SearchBar/>
       <TrandItem/>
       <SuggestedProfiles/>
@@ -25,6 +25,7 @@ import SuggestedProfiles from "@/components/rightArea/SuggestedProfiles.vue";
 .rightArea{
   overflow: visible;
   height: fit-content;
+  position:sticky;
 }
 .link a {
   text-decoration: none;

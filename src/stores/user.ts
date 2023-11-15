@@ -1,19 +1,22 @@
 import {defineStore} from 'pinia'
-import {ref} from "vue";
-import {type UserStateType} from "@/types/UserType"
-import type {StrOrNull} from "@/types/GeneralTypes";
+import {type Ref, ref} from "vue";
+import {type UserResponseData} from "@/types/UserType"
 
 export const useUserStore = defineStore('user',()=>{
-    const user = ref<UserStateType>({
+    const user= ref<UserResponseData>({
         id: null,
-        first_name: null,
-        last_name: null,
         login: null,
+        email: null,
+        first_name:null,
+        last_name:null,
+        profile_pic:null,
         role:null,
-        img_url:null,
-        email:null
+        email_verified_at: null,
+        created_at: null,
+        updated_at: null,
+        token: null
     })
-    const token:StrOrNull = null
+    const isAuth = ref<boolean>(false)
 
-    return { user, token}
+    return { user,isAuth}
 })

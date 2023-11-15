@@ -1,6 +1,5 @@
 import axios from "axios"
 const unauthorizedRequest = axios.create({
-    baseURL: 'http://inaboba/api',
-    method: "GET"
+    method: "POST"
 })
 export default unauthorizedRequest

@@ -2,26 +2,28 @@
   <div class="bg-black  h-screen w-screen flex flex-col bg-gradient-to-b
             from-[#1C1C1C]
             to-black">
-    <div class="px-8 py-3 bg-slate-200 w-fit rounded-xl m-auto">
-      <h2 class="text-center  mb-5">Авторизация</h2>
-      <form class="flex flex-col items-center relative" @submit.prevent>
-        <span class="text-red-600 text-[.8rem] absolute top-[-1.2rem]"  v-show="hasError">Ошибка при заполнении данных</span>
+    <div class="px-8 py-3 bg-slate-200 w-fit flex flex-col rounded-xl m-auto">
+      <h2 class="text-center text-black mb-5">Авторизация</h2>
+      <form class="flex flex-col text-black items-center relative" @submit.prevent>
+        <span class="text-red-600 text-[.8rem] w-1/2"
+              v-html="error"
+              v-show="hasError"></span>
 
-        <input v-model="user.email"
+        <input v-model="userRequest.email"
                class="w-min px-1 py-0.5 rounded-lg outline-none hover:bg-gray-100 focus:border focus:border-black mb-5"
                placeholder="Введите вашу почту" type="email">
-        <input v-model="user.password"
+        <input v-model="userRequest.password"
                class="w-min px-1 py-0.5  rounded-lg outline-none hover:bg-gray-100 focus:border focus:border-black mb-5"
                placeholder="Введите ваш пароль" type="password">
-        <input @click.prevent="logIn()"
-               class="justify-self-center w-min px-1 py-0.5 rounded-lg outline-none hover:bg-gray-100 focus:border focus:border-black mb-5 bg-white "
+        <input @click.prevent="logInRequest()"
+               class="justify-self-center w-min text-black px-1 py-0.5 rounded-lg outline-none hover:bg-gray-100 focus:border focus:border-black mb-5 bg-white "
                value="Отправить"
                type="button">
 
       </form>
-      <router-link to="/signin" v-if="!isAuth">
+      <router-link class="self-center" :to="{name:'signUp'}" v-if="!isAuth">
         <button
-            class="w-full mx-auto p-1 text-center rounded-lg  outline-none hover:bg-gray-100 focus:border focus:border-black mb-5 bg-white">
+            class="mx-auto p-1 text-center rounded-lg text-black  outline-none hover:bg-gray-100 focus:border focus:border-black mb-5 bg-white">
           Регистрация
         </button>
       </router-link>
@@ -30,60 +32,65 @@
   </div>
 </template>
 
-<script setup>
-import instance from "../api/auth";
-import {ref} from "vue";
+<script lang="ts" setup>
+import unauthorizedRequest from "../api/unauthorizedRequest";
+import {onMounted, type Ref, ref} from "vue";
 import {useUserStore} from "../stores/user";
 import {storeToRefs} from "pinia";
 import router from "../router";
+import type {UserRequestLogIn, ResponseData, UserResponseData} from "@/types/UserType";
+import type {AxiosResponse} from "axios";
 
-const user = ref({
-  email:'',
-  password:'',
-  login:'',
-  first_name:'',
-  last_name:'',
-  img_url:'',
-  role:'',
+const userRequest = ref<UserRequestLogIn>({
+  email: '',
+  password: '',
 })
-const hasError = ref(false)
+const hasError = ref<boolean>(false)
 const useUser = useUserStore()
-const loginRequest = async () => {
-  try {
-    return await instance({
-      method: 'post',
-      url: 'login',
-      data: {
-        email: user.value.email,
-        password: user.value.password
-      }
-    })
-  }catch (e){
-    console.log(e)
-  }
-}
-const {isAuth, token,userData,login,first_name,last_name,profileImage} = storeToRefs(useUser)
-const logIn = async () =>{
-  try {
-    const request = await loginRequest()
-    if (request.data.message === 'UserType Logged in successfully'){
-      isAuth.value = true
-      userData.value = request.data.user
-      if (isAuth.value) {
-        localStorage.setItem('user',{
-          userData: request.data.user,
-        })
-        router.push('/home')
-      }else{
+const error = ref<string>('')
+const {isAuth, user} = storeToRefs(useUser)
+const logInRequest = (): Promise<AxiosResponse<any>> => {
+  return unauthorizedRequest<UserRequestLogIn>({
+    url: '/login',
+    data: {
+      email: userRequest.value.email,
+      password: userRequest.value.password
+    }
+  })
+      .then(response => {
+        user.value = response.data.user
+        console.log(user.value)
+        if (response?.data.status) {
+          isAuth.value = true
+          if (isAuth.value) {
+            localStorage.setItem('user', JSON.stringify(response.data.user))
+            router.push('/news')
+          } else {
+            hasError.value = true
+          }
+        }
+          })
+      .catch(reason => {
         hasError.value = true
-      }
-  }
-  }catch (e){
-    hasError.value = true
-    console.log(e)
-  }
-
+        error.value = reason.response.data.message
+      })
 }
+
+
+/*const assignValues = async () => {
+  const response = await logInRequest()
+  user.value = response.data.user
+  console.log(user.value)
+  if (response?.data.status) {
+    isAuth.value = true
+    if (isAuth.value) {
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+      router.push('/news')
+    } else {
+      hasError.value = true
+    }
+  }
+}*/
 </script>
 
 <style scoped>

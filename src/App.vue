@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import {ref} from "vue";
+
 
 </script>
 <template>
@@ -43,13 +45,13 @@ svg {
 
 @media (min-width: 1200px) and (max-width: 1600px) {
   * {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 
 @media (min-width: 1600px) and (max-width: 2000px) {
   * {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 </style>
