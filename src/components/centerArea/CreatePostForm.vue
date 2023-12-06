@@ -1,16 +1,29 @@
 <script lang="ts" setup>
 import {ref} from "vue";
-import type {UploadInstance,UploadUserFile , UploadProps, ElMessage} from 'element-plus'
+import type {ElMessage, UploadInstance, UploadUserFile} from 'element-plus'
 
 import TextEditor from "@/components/centerArea/TextEditor.vue";
+import {storeToRefs} from "pinia/dist/pinia";
+import {useUserStore} from "@/stores/user";
+import {getRequest} from "@/api/getUsers";
 
 const uploadRef = ref<UploadInstance>()
 const fileList = ref<UploadUserFile[]>()
 const content = ref<string | null>(null)
 const files = ref<object[]>([])
+const {user} = storeToRefs(useUserStore())
+
+const createPost = async() =>{
+  const response = await getRequest('/posts',{
+    method:"POST",
+    data:{
+      content:content.value
+    }
+  })
+}
 const updateContent = (newContent: string) => {
   content.value = newContent
-};
+}
 
 const test = (e: object) => {
   console.log(e)
@@ -63,13 +76,13 @@ const submitUpload = (postText: string | null, files: object[]) => {
 <template>
   <div class="tweet">
     <div class="post">
-      <el-image src="src/assets/images/uplogo.jpg" class="el-image"/>
+      <el-image :src="user.profile_pic??'src/assets/images/uplogo.jpg'" class="el-image"/>
       <!--@focusin="innerText ==='Что нового?'? innerText = '': true"
                         @focusout="innerText === '' ? innerText = 'Что нового?' : true"-->
-      <TextEditor v-model="content" @input="updateContent"/>
-      <!--      <mavon-editor v-model="content"/>-->
+      <TextEditor v-model="content" placeholder="Что у вас новог?"/>
+      <el-button @click="createPost()" type="primary">Отправить</el-button>
     </div>
-    <el-upload
+<!--    <el-upload
         ref="uploadRef"
         list-type="text"
         class="upload-demo"
@@ -86,10 +99,10 @@ const submitUpload = (postText: string | null, files: object[]) => {
           </el-icon>
         </el-container>
       </template>
-      <el-button class="el-button--large" size="large" @click="submitUpload(content,uploadRef)" type="primary" round>
+      <el-button class="el-button&#45;&#45;large" size="large" @click="submitUpload(content,uploadRef)" type="primary" round>
         Поделиться
       </el-button>
-    </el-upload>
+    </el-upload>-->
   </div>
 </template>
 
@@ -102,7 +115,7 @@ const submitUpload = (postText: string | null, files: object[]) => {
 
 .post {
   display: grid;
-  grid-template-columns: 1fr 9fr;
+  grid-template-columns: 1fr 8fr 1fr;
   grid-column-gap: 1rem;
 }
 

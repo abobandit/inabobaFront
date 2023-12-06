@@ -3,10 +3,6 @@ import HomeIcon from "@/assets/svg/HomeIcon.vue";
 import MenuItem from "@/components/UI/MenuItem.vue";
 import MessageIcon from "@/assets/svg/MessageIcon.vue";
 import ProfileIcon from "@/assets/svg/ProfileIcon.vue";
-import ButtonUI from "@/components/UI/ButtonUI.vue";
-import ProfileSuggested from "@/components/leftArea/ProfileSuggested.vue";
-import {onBeforeMount, onMounted} from "vue";
-import Echo from "laravel-echo";
 import axios from "axios";
 
 
@@ -32,7 +28,7 @@ const bodyRequest = {
       <MenuItem link="/messenger" title="Сообщения">
         <MessageIcon/>
       </MenuItem>
-      <MenuItem link="/profile" title="Профиль">
+      <MenuItem link="/friends" title="Друзья">
         <ProfileIcon/>
       </MenuItem>
     </el-container>
@@ -43,9 +39,9 @@ const bodyRequest = {
                       profile-name="Rai Sheheryar"/>
     <el-button type="primary" size="large" round
                @click="sendMessage('123')"> Поделиться </el-button>-->
-    <el-dropdown @command="handleCommand">
+<!--    <el-dropdown @command="handleCommand">
     <span class="el-dropdown-link">
-      Dropdown List<el-icon class="el-icon--right"><arrow-down /></el-icon>
+      Dropdown List<el-icon class="el-icon&#45;&#45;right"><arrow-down /></el-icon>
     </span>
       <template #dropdown>
         <el-dropdown-menu>
@@ -56,7 +52,7 @@ const bodyRequest = {
           <el-dropdown-item command="e" divided>Action 5</el-dropdown-item>
         </el-dropdown-menu>
       </template>
-    </el-dropdown>
+    </el-dropdown>-->
   </el-aside>
 </template>
 

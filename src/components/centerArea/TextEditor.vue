@@ -1,15 +1,19 @@
 <template>
-    <editor-content @input="emits('input',$event.target.innerHTML)" class="textEditor" :editor="editor" />
+  <div class="text-editor">
+      <!-- <el-text v-if="handlePlaceholder" class="el-text">{{ placeholder }}</el-text> -->
+    <editor-content @input="emits('update:modelValue',$event.target.innerHTML)" class="textEditor" :editor="editor" />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { EditorContent, useEditor} from '@tiptap/vue-3'
+import {EditorContent, useEditor} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-import { SkeletonBlock } from 'skeleton-elements/vue';
+
 const props = defineProps<{
+  placeholder:string,
   modelValue: string|null
 }>()
-const emits = defineEmits(['input'])
+const emits = defineEmits(['update:modelValue'])
 const editor = useEditor({
   content: props.modelValue,
   extensions: [
@@ -22,33 +26,20 @@ const editor = useEditor({
   },
 })
 </script>
+
 <style scoped>
 .textEditor{
+  padding: .4rem 1rem;
   width:95%;
 }
 .textEditor:active, .textEditor:focus {
   outline: none;
   border: none;
 }
-
-@media (max-width: 900px) {
+.text-editor{
+  background: inherit;
+  outline: 1px solid white;
+  border-radius: .3rem;
 }
 
-@media (min-width: 900px) {
-}
-
-@media (min-width: 800px) and (max-width: 1000px) {
-}
-
-@media (min-width: 1000px) and (max-width: 1200px) {
-}
-
-@media (min-width: 1200px) and (max-width: 1600px) {
-}
-
-@media (min-width: 1600px) and (max-width: 1800px) {
-}
-
-@media (min-width: 1800px) {
-}
 </style>

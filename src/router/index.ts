@@ -65,47 +65,42 @@ const router = createRouter({
 
     ]
 })
-router.beforeEach((to, from) => {
+router.beforeEach(async (to, from) => {
     console.log('проверяется аутентификация')
     const {isAuth, user} = storeToRefs(useUserStore())
     const lStorage = localStorage.getItem("user")
     if (lStorage!== null && to.meta.requiresAuth){
-        console.log(123141)
     const userLocalStorage = ref(JSON.parse(lStorage))
     if(userLocalStorage.value){
         user.value = userLocalStorage.value
     }
-    console.log(user.value.token)
-
-    axios.get('/authUser', {
+    const authentication =  axios.get('/authUser', {
         headers: {
             Authorization: 'Bearer ' + user.value.token
         }
     })
         .then(response => {
             isAuth.value = true
-            console.log(1235123541)
             if (to.meta.requiresAuth === false) {
-                console.log('aboba')
-                return {name: "news"}
+                return '/news'
             }else {
-                console.log(1234)
-                return {name: to.name}
+                return true
             }
         })
         .catch(reason => {
-            console.log(reason.response.data)
             isAuth.value = false
             if (to.meta.requiresAuth) {
-                return '/logIn'
+                console.log(13)
+                return {name:'logIn'}
             }else return {name:to.name}
         })
+        console.log(await authentication)
+        return await authentication
     }else if(!lStorage && to.meta.requiresAuth){
         console.log('авторизованный путь без авторизации')
         return '/logIn'
     } else if(!lStorage&& !to.meta.requiresAuth){
         console.log('Неавторизованный путь')
-        console.log(to.name)
     }
 })
 export default router

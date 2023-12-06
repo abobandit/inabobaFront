@@ -1,20 +1,17 @@
 <script setup lang="ts">
 // console.log('я дошел сюда')
-import SearchIcon from "@/components/UI/SearchIcon.vue"
 import {onMounted, ref, shallowRef} from "vue";
-import axios from "axios";
 import type {UsersArray} from "@/types/UserType";
 import {getRequest} from "@/api/getUsers";
-import SearchBar from "@/components/rightArea/SearchBar.vue";
-import InputUI from "@/components/UI/InputUI.vue";
+
 
 const focusTextEditor = ref(false)
 const textEditor = ref(null)
 const searchIcon = ref(null)
 const searchUserText = ref('')
 const users: UsersArray = shallowRef([])
-const chats = shallowRef([])
-const messages = shallowRef([])
+const chats = ref()
+const lastMessage = shallowRef([])
 
 const updateContent = (newContent: string) => {
   searchUserText.value = newContent
@@ -34,39 +31,35 @@ const getUserList = async () => {
 }
 const getChatList = async () => {
   try {
-    const response = await getRequest({url: '/chats'})
+    const response = await getRequest({url: '/chatss'})
     return response.data.data
   } catch (e: any) {
     console.error(e.message)
   }
 }
-const getMessages = async () => {
-  try {
-    const response = await getRequest({url: '/lastMessage'})
-    return response.data.data
-  } catch (e: any) {
-    console.error(e.message)
-  }
-}
-onMounted(async () => {
-  users.value = await getUserList()
+const assignValues = async ()=>{
   chats.value = await getChatList()
-  messages.value = await getMessages()
-  console.log(messages.value)
+  // lastMessage.value = await getLastMessage(1)
+  // console.log(lastMessage.value)
   console.log(chats.value)
+}
+onMounted(async()=>{
+  chats.value = await getChatList()
+  console.log(chats.value)
+
 })
 </script>
 
 <template>
   <el-container class="el-container_msg">
-    <el-container>
+<!--    <el-container>
       <SearchIcon ref="searchIcon" v-if="!focusTextEditor && !searchUserText.length" class="absolute"/>
       <InputUI @focusout="focusTextEditor = false"
                @focusin="focusTextEditor = true"
                ref="textEditor"
                class="bg-inherit hover:bg-inherit active:bg-inherit focus:bg-inherit"
                v-model="searchUserText"/>
-    </el-container>
+    </el-container> -->
     <template v-if="focusTextEditor && users.length">
       <el-container
           v-for="user in users"
@@ -85,7 +78,7 @@ onMounted(async () => {
             <el-text class="user_login">{{ user.login }}</el-text>
             <el-container>
               <el-image fit="cover" class="el-image-preview" :src="user.profile_pic"/>
-              <el-text class="msg-preview">сообщение последнее пользователя</el-text>
+              <el-text class="msg-preview"></el-text>
             </el-container>
           </el-container>
         </RouterLink>
@@ -94,26 +87,23 @@ onMounted(async () => {
     <template v-else-if="focusTextEditor && !users.length">
       <el-text>У вас нет друзей</el-text>
     </template>
-    <template v-if="chats.length">
+    <template v-if="chats?.length">
       <el-container
-          v-for="chat in chats"
+          v-for=" chat in chats"
           :key="chat.id"
           class="user-dialog-list">
         <RouterLink :to="{
       name:'chat',
       params:{
-      chat:1
+      chat:chat.id
       }
       }">
           <el-icon class="el-icon">
             <el-image fit="cover" class="el-image" :src="chat.users[0].profile_pic"/>
           </el-icon>
           <el-container class="wrapper">
-            <el-text class="user_login">{{ chat.users[0].login }}</el-text>
-            <el-container>
-              <el-image fit="cover" class="el-image-preview" :src="chat.users[0].profile_pic"/>
-              <el-text class="msg-preview">сообщение последнее пользователя</el-text>
-            </el-container>
+            <el-text v-if="chat.isPrivate" class="user_login">{{ chat.users[0].login }}</el-text>
+            <el-text v-else class="user_login">{{ chat.users[0].login }}</el-text>
           </el-container>
         </RouterLink>
       </el-container>
