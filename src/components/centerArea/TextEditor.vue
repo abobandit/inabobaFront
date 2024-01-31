@@ -1,21 +1,24 @@
 <template>
   <div class="text-editor">
       <!-- <el-text v-if="handlePlaceholder" class="el-text">{{ placeholder }}</el-text> -->
-    <editor-content @input="emits('update:modelValue',$event.target.innerHTML)" class="textEditor" :editor="editor" />
+    <editor-content   class="textEditor" :editor="editor" />
   </div>
 </template>
 
 <script setup lang="ts">
-import {EditorContent, useEditor} from '@tiptap/vue-3'
+import {Editor, EditorContent, useEditor} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+import {onBeforeUnmount, type ShallowRef, toRefs, watch} from "vue";
 
 const props = defineProps<{
   placeholder:string,
   modelValue: string|null
 }>()
 const emits = defineEmits(['update:modelValue'])
-const editor = useEditor({
-  content: props.modelValue,
+
+const {modelValue} = toRefs(props)
+const editor:ShallowRef<Editor | undefined> = useEditor({
+  content: modelValue.value,
   extensions: [
     StarterKit,
   ],
@@ -24,6 +27,19 @@ const editor = useEditor({
       class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
     },
   },
+  onUpdate:({editor})=>{
+    emits('update:modelValue',editor.getHTML())
+  }
+})
+watch(modelValue,(newValue, oldValue) => {
+  const isSame = newValue=== oldValue
+  if(isSame){
+    return
+  }
+  editor.value?.commands.setContent(newValue,false)
+})
+onBeforeUnmount(()=>{
+  editor.destroy()
 })
 </script>
 

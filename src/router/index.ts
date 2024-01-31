@@ -30,6 +30,7 @@ const router = createRouter({
         {
             path: '/',
             component: AuthorizedView,
+            redirect: '/news',
             meta: {
                 requiresAuth: true
             },
@@ -65,7 +66,7 @@ const router = createRouter({
 
     ]
 })
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to) => {
     console.log('проверяется аутентификация')
     const {isAuth, user} = storeToRefs(useUserStore())
     const lStorage = localStorage.getItem("user")
@@ -74,7 +75,7 @@ router.beforeEach(async (to, from) => {
     if(userLocalStorage.value){
         user.value = userLocalStorage.value
     }
-    const authentication =  axios.get('/authUser', {
+        return  axios.get('/authUser', {
         headers: {
             Authorization: 'Bearer ' + user.value.token
         }
@@ -82,7 +83,7 @@ router.beforeEach(async (to, from) => {
         .then(response => {
             isAuth.value = true
             if (to.meta.requiresAuth === false) {
-                return '/news'
+                return {name:'news'}
             }else {
                 return true
             }
@@ -94,11 +95,10 @@ router.beforeEach(async (to, from) => {
                 return {name:'logIn'}
             }else return {name:to.name}
         })
-        console.log(await authentication)
-        return await authentication
+
     }else if(!lStorage && to.meta.requiresAuth){
         console.log('авторизованный путь без авторизации')
-        return '/logIn'
+        return {name:'logIn'}
     } else if(!lStorage&& !to.meta.requiresAuth){
         console.log('Неавторизованный путь')
     }

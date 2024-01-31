@@ -40,6 +40,7 @@ const sendMsg = async () => {
         }
       })
       console.log(response.data);
+      messageText.value = ''
       return response.data
     } catch (e) {
       console.log(e.response.data);

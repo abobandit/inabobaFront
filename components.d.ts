@@ -10,6 +10,7 @@ declare module 'vue' {
     BoxItem: typeof import('./src/components/rightArea/BoxItem.vue')['default']
     ButtonUI: typeof import('./src/components/UI/ButtonUI.vue')['default']
     CreatePostForm: typeof import('./src/components/centerArea/CreatePostForm.vue')['default']
+    ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElIcon: typeof import('element-plus/es')['ElIcon']
