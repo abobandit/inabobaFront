@@ -1,4 +1,9 @@
 {
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "vue"
+    // ...
+  },
   "files": [
     "src/types/UserType.ts"
   ],

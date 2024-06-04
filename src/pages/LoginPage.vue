@@ -49,7 +49,7 @@ const hasError = ref<boolean>(false)
 const useUser = useUserStore()
 const error = ref<string>('')
 const {isAuth, user} = storeToRefs(useUser)
-const logInRequest = (): Promise<AxiosResponse<any>> => {
+const logInRequest = (): Promise<AxiosResponse<any>|void> => {
   return unauthorizedRequest<UserRequestLogIn>({
     url: '/login',
     data: {

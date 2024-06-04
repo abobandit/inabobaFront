@@ -5,7 +5,7 @@ import RightArea from "@/views/RightArea.vue";
 </script>
 
 <template>
-  <el-container class="justify-center items-start">
+  <el-container color-scheme="dark" class="justify-center dark items-start">
     <LeftArea/>
     <CenterArea/>
     <RightArea/>

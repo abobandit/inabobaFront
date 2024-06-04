@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
-import {getRequest} from "@/api/getUsers";
+import {getRequest} from "@/api/getRequest";
 
 const friends = ref([])
 const unAcceptedFriends = ref([])

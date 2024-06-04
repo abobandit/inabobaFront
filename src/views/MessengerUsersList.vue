@@ -2,7 +2,7 @@
 // console.log('я дошел сюда')
 import {onMounted, ref, shallowRef} from "vue";
 import type {UsersArray} from "@/types/UserType";
-import {getRequest} from "@/api/getUsers";
+import {getRequest} from "@/api/getRequest";
 
 
 const focusTextEditor = ref(false)

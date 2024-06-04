@@ -38,9 +38,6 @@ watch(modelValue,(newValue, oldValue) => {
   }
   editor.value?.commands.setContent(newValue,false)
 })
-onBeforeUnmount(()=>{
-  editor.destroy()
-})
 </script>
 
 <style scoped>

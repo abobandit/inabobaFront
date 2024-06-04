@@ -6,12 +6,13 @@ import {ref} from "vue";
 
 const MessengerView = () => import("@/views/MessengerUsersList.vue"),
     NewsView = () => import("@/views/NewsView.vue"),
-    ProfileView = () => import("@/views/ProfileView.vue"),
+    ProfileView = () => import("@/views/Profile/ProfileView.vue"),
     FriendsView = () => import("@/views/FriendsView.vue"),
     AuthorizedView = () => import("@/views/AuthorizedView.vue"),
     LoginPage = () => import("@/pages/LoginPage.vue"),
     SignUpPage = () => import("@/pages/SignUpPage.vue"),
-    ChatView = () => import("@/views/ChatView.vue")
+    ChatView = () => import("@/views/ChatView.vue"),
+    AlbumView = () => import("@/views/Album/AlbumView.vue")
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,6 +60,11 @@ const router = createRouter({
                     path: '/friends',
                     name: 'friends',
                     component: FriendsView
+                },
+                {
+                    path: '/album/:album',
+                    name: 'album',
+                    component: AlbumView
                 },
             ]
         },

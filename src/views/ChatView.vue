@@ -5,7 +5,7 @@ import {onMounted, onUnmounted, ref} from "vue";
 import {ElScrollbar} from 'element-plus'
 import {useUserStore} from "@/stores/user";
 import {storeToRefs} from "pinia/dist/pinia";
-import {getRequest} from "@/api/getUsers";
+import {getRequest} from "@/api/getRequest";
 import router from "@/router";
 
 const editor = ref(null)
@@ -59,7 +59,6 @@ const channelEvent = e => {
     text: e.message.text,
     user: e.user
   })
-  console.log('Произошел ивент')
 }
 
 Echo.channel(`chat-${currentChatId.value}`)

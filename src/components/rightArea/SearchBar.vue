@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import {getRequest} from "@/api/getUsers";
+import {getRequest} from "@/api/getRequest";
 
 type svgornull = SVGElement | null
 const searchInput = ref<HTMLInputElement | null>(null)
@@ -69,7 +69,7 @@ const searchIconDisappear = (icon: svgornull) =>{
         v-model="searchValue"
         ref="searchInput"
         class="rounded-3xl pr-4 py-3 pl-10 w-full" type="text"
-           placeholder="Search Twiter">
+           placeholder="Искать пользователей">
     <div v-if="users.length" class="foundUsers">
       <div class="suggestions"
            v-for="user in users"

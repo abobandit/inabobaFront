@@ -2,7 +2,7 @@
 
 import CreatePostForm from "@/components/centerArea/CreatePostForm.vue";
 import {onMounted, ref} from "vue";
-import {getRequest} from "@/api/getUsers";
+import {getRequest} from "@/api/getRequest";
 
 const posts = ref([])
 const getPosts = async () => {
@@ -27,8 +27,7 @@ onMounted(async () => {
       <div class="logo"><img :src="post?.user?.id" alt="" width="45px" class="postlogo"></div>
       <div class="">
         <div class="name">
-          <h4 v-text="post?.user?.first_name"/>
-          <p>@{{ post?.user?.login }}. 20h</p>
+          <p>@{{ post?.user?.login }}</p>
           <div class="dots">
             <i class="fa-solid fa-ellipsis"></i>
           </div>
@@ -36,21 +35,20 @@ onMounted(async () => {
         <p v-html="post.content" class="dis"></p>
         <!--        <img src="../assets/images/post.jfif" alt="" class="postimg" width="100%">-->
         <div class="btns">
-          <div class="line"><img src="../assets/images/btn1.JPG" alt="" width="20px" height="25px">
+          <div class="line"><img src="@/assets/svg/share-arrow-svgrepo-com.svg" alt="" width="20px" height="25px">
             <p>125</p>
           </div>
-          <div class="line"><img src="../assets/images/btn2.JPG" alt="" width="20px" height="20px">
+          <div class="line"><img src="@/assets/svg/comment-multiple-svgrepo-com.svg" alt="" width="20px" height="20px">
             <p>459</p>
           </div>
-          <div class="line"><img src="../assets/images/btn3.JPG" alt="" width="20px" height="20px">
+          <div class="line"><img src="@/assets/svg/notLiked.svg" alt="" width="20px" height="20px">
             <p>10.9k</p>
           </div>
-          <div class="line"><img src="../assets/images/btn4.JPG" alt="" width="20px" height="25px"></div>
+          <div class="line"></div>
         </div>
       </div>
     </div>
     <!-- post feeds -->
-    <div class="feed">
       <div class="feedpost">
         <div class="logo"><img src="../assets/images/postlogo.jpg" alt="" width="45px" class="postlogo"></div>
         <div class="">
@@ -65,16 +63,15 @@ onMounted(async () => {
             game to go...<br><br> <span class="hastage">#PAKvENG</span></p>
           <img src="../assets/images/post.jfif" alt="" class="postimg" width="100%">
           <div class="btns">
-            <div class="line"><img src="../assets/images/btn1.JPG" alt="" width="20px" height="25px">
+            <div class="line"><img src="@/assets/svg/share-arrow-svgrepo-com.svg" alt="" width="20px" height="25px">
               <p>125</p>
             </div>
-            <div class="line"><img src="../assets/images/btn2.JPG" alt="" width="20px" height="20px">
+            <div class="line"><img src="@/assets/svg/comment-multiple-svgrepo-com.svg" alt="" width="20px" height="20px">
               <p>459</p>
             </div>
-            <div class="line"><img src="../assets/images/btn3.JPG" alt="" width="20px" height="20px">
+            <div class="line"><img src="@/assets/svg/notLiked.svg" alt="" width="20px" height="20px">
               <p>10.9k</p>
             </div>
-            <div class="line"><img src="../assets/images/btn4.JPG" alt="" width="20px" height="25px"></div>
           </div>
         </div>
       </div>
@@ -96,16 +93,15 @@ onMounted(async () => {
             <source src="../assets/videos/H_z-DN7f_bvzGICO.mp4" type="video/mp4">
           </video>
           <div class="btns">
-            <div class="line"><img src="../assets/images/btn1.JPG" alt="" width="20px" height="25px">
+            <div class="line"><img src="@/assets/svg/share-arrow-svgrepo-com.svg" alt="" width="20px" height="25px">
               <p>9899</p>
             </div>
-            <div class="line"><img src="../assets/images/btn2.JPG" alt="" width="20px" height="20px">
+            <div class="line"><img src="@/assets/svg/comment-multiple-svgrepo-com.svg" alt="" width="20px" height="20px">
               <p>2459</p>
             </div>
-            <div class="line"><img src="../assets/images/btn3.JPG" alt="" width="20px" height="20px">
+            <div class="line"><img src="@/assets/svg/notLiked.svg" alt="" width="20px" height="20px">
               <p>100.9k</p>
             </div>
-            <div class="line"><img src="../assets/images/btn4.JPG" alt="" width="20px" height="25px"></div>
           </div>
         </div>
       </div>
@@ -125,16 +121,15 @@ onMounted(async () => {
           <p class="dis"> Crew-5, SpaceX, and @NASA completed a full rehearsal of launch day activities</p>
           <img src="../assets/images/2post.jfif" alt="" class="postimg" width="100%">
           <div class="btns">
-            <div class="line"><img src="../assets/images/btn1.JPG" alt="" width="20px" height="25px">
+            <div class="line"><img src="@/assets/svg/share-arrow-svgrepo-com.svg" alt="" width="20px" height="25px">
               <p>125</p>
             </div>
-            <div class="line"><img src="../assets/images/btn2.JPG" alt="" width="20px" height="20px">
+            <div class="line"><img src="@/assets/svg/comment-multiple-svgrepo-com.svg" alt="" width="20px" height="20px">
               <p>459</p>
             </div>
-            <div class="line"><img src="../assets/images/btn3.JPG" alt="" width="20px" height="20px">
+            <div class="line"><img src="@/assets/svg/notLiked.svg" alt="" width="20px" height="20px">
               <p>10.9k</p>
             </div>
-            <div class="line"><img src="../assets/images/btn4.JPG" alt="" width="20px" height="25px"></div>
           </div>
         </div>
       </div>
@@ -155,41 +150,22 @@ onMounted(async () => {
             game to go...<br><br> <span class="hastage">#SpaceX</span></p>
           <img src="../assets/images/2post2.jfif" alt="" class="postimg" width="100%">
           <div class="btns">
-            <div class="line"><img src="../assets/images/btn1.JPG" alt="" width="20px" height="25px">
+            <div class="line"><img src="@/assets/svg/share-arrow-svgrepo-com.svg" alt="" width="20px" height="25px">
               <p>425</p>
             </div>
-            <div class="line"><img src="../assets/images/btn2.JPG" alt="" width="20px" height="20px">
+            <div class="line"><img src="@/assets/svg/comment-multiple-svgrepo-com.svg" alt="" width="20px" height="20px">
               <p>750</p>
             </div>
-            <div class="line"><img src="../assets/images/btn3.JPG" alt="" width="20px" height="20px">
+            <div class="line"><img src="@/assets/svg/notLiked.svg" alt="" width="20px" height="20px">
               <p>88.9k</p>
             </div>
-            <div class="line"><img src="../assets/images/btn4.JPG" alt="" width="20px" height="25px"></div>
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 <style scoped>
 
-.top h2 {
-  font-family: sans-serif;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.tweet img {
-  width: 40px;
-  border-radius: 25px;
-  margin-right: 15px;
-}
-
-.tweet p {
-  font-family: sans-serif;
-  font-size: 20px;
-  cursor: pointer;
-}
 
 .feedpost {
   display: flex;
@@ -200,7 +176,7 @@ onMounted(async () => {
 }
 
 .feedpost:hover {
-  background-color: rgb(249, 249, 249);
+  background-color: rgb(19, 26, 26);
   transition: 0.2s;
 }
 

@@ -11,8 +11,8 @@ import Pusher, * as PusherTypes from 'pusher-js';
 import Echo from 'laravel-echo';
 
 axios.defaults.baseURL = 'http://inaboba/api'
-axios.defaults.headers.accept ='application/json'
-
+axios.defaults.headers.accept = 'application/json'
+axios.defaults.headers['Access-Control-Allow-Origin'] = '*'
 declare const presenceChannel: PusherTypes.PresenceChannel    // Enable pusher logging - don't include this in production
 // Pusher.logToConsole = true;
 
@@ -29,7 +29,9 @@ window.Echo = new Echo({
 
 const app = createApp(App)
 const pinia = createPinia()
-
+app.config.globalProperties.$ELEMENT = {
+    theme: 'dark'
+}
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }

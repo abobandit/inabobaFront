@@ -22,6 +22,9 @@ const bodyRequest = {
 <template>
   <el-aside class="leftarea ">
     <el-container class="el-container">
+      <MenuItem link="/profile" title="Профиль">
+        <ProfileIcon class="mr-[15px]"/>
+      </MenuItem>
       <MenuItem link="/news" :title="'Главная страница'">
         <HomeIcon/>
       </MenuItem>
@@ -29,7 +32,10 @@ const bodyRequest = {
         <MessageIcon/>
       </MenuItem>
       <MenuItem link="/friends" title="Друзья">
-        <ProfileIcon/>
+        <el-container class="icon-grid">
+          <ProfileIcon class="z-10 bg-inherit"/>
+          <ProfileIcon class="z-0"/>
+        </el-container>
       </MenuItem>
     </el-container>
 
@@ -57,6 +63,12 @@ const bodyRequest = {
 </template>
 
 <style scoped>
+.icon-grid{
+  display:grid;
+  max-width:25px;
+  margin-right: 15px;
+  grid-template-columns: repeat(2,10px);
+}
 .leftarea{
   width: fit-content;
   position:sticky;
